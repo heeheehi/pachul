@@ -1,0 +1,33 @@
+@import "../../scss/style";
+:host {
+  display: block;
+  width: 100%;
+}
+form {
+  width: 400px;
+  display: block;
+  border: solid #ccc 1px;
+  border-radius: 10px;
+  margin: 30px auto;
+  padding: 16px;
+  >input {
+    width: 93%;
+    padding: 10px;
+    border: solid #cccccc 1px;
+    background: #fff;
+    color: black;
+    margin: 10px 0;
+  }
+  .login {
+    padding: 10px 20px;
+    background: $primaryColor;
+    color: #fff;
+    border: solid 0;
+  }
+}
+@media screen and (max-width: 700px) {
+  form {
+    width: 90%;
+    margin: 10px 0;
+  }
+}

@@ -1,0 +1,122 @@
+<div class="employer-contianer">
+  <mat-tab-group>
+    <mat-tab label="내 정보">
+      <div class="content">
+        <label class="form-label">상호명</label>
+        <div class="form-input">{{ownerInfo.storeName}}</div>
+        <label class="form-label">사장 이름</label>
+          <div class="form-input">{{ownerInfo.ownerName}}</div>
+        <label class="form-label">가입 기간</label>
+          <div class="form-input">{{ownerInfo.registerTerm}}</div>
+        <label class="form-label">가입 구좌</label>
+          <div class="form-input-half">{{ownerInfo.accountCnt}}</div>
+        <label class="form-label">남은 콜수</label>
+        <div class="form-input-half">{{ownerInfo.callCnt}}</div>
+      </div>
+    </mat-tab>
+    <mat-tab label="콜보내기">
+      <div class="content">
+        <form class="call-request" (ngSubmit)="call()">
+          <label class="form-label">날짜</label>
+          <mat-form-field>
+            <input matInput class="end-date" name="endDate" [(ngModel)]="callItem.date" [matDatepicker]="endDatePicker">
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+          </mat-form-field>
+          <label class="form-label">시간</label>
+          <div class="time-term">
+            <select class="time" title="startHour" [(ngModel)]="callItem.startHour">
+              <option value="7">07</option>
+              <option value="8">08</option>
+              <option value="9">09</option>
+              <option value="10">10</option>
+              <option value="11">10</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+            </select>
+            <select class="time" title="startMinute" [(ngModel)]="callItem.startMin">
+              <option value="00">00</option>
+              <option value="30">30</option>
+            </select>
+            ~
+            <select class="time" title="endtHour" [(ngModel)]="callItem.endHour">
+              <option value="7">07</option>
+              <option value="8">08</option>
+              <option value="9">09</option>
+              <option value="10">10</option>
+              <option value="11">10</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+            </select>
+            <select class="time" title="endMinute" [(ngModel)]="callItem.endMin">
+              <option value="00">00</option>
+              <option value="30">30</option>
+            </select>
+          </div>
+          <label class="form-label">카테고리</label>
+          <input name="category" type="text" placeholder="카테고리" [(ngModel)]="callItem.category">
+          <label class="form-label">기타 요청사</label>
+          <input name="ect" type="text" placeholder="기타 요청사항" [(ngModel)]="callItem.etc">
+        </form>
+      </div>
+    </mat-tab>
+    <mat-tab label="콜 목록">
+      <div class="call-list content">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>날짜</th>
+            <th>시간</th>
+            <th>카테고리</th>
+            <th>비고</th>
+            <th>배정</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!--<tr *ngFor="let call of callList">-->
+          <!--<td>{{call.companyName}}</td>-->
+          <!--<td>{{call.date}}</td>-->
+          <!--<td>{{call.startTime}}</td>-->
+          <!--<td>{{call.endTime}}</td>-->
+          <!--<td>{{call.category}}</td>-->
+          <!--<td>{{call.detail}}</td>-->
+          <!--<td>{{call.additionDate}}</td>-->
+          <!--<td><button class="assignment" type="button">배정</button> </td>-->
+          <!--</tr>-->
+          <tr>
+            <td>2018-04-10</td>
+            <td>08:30:00<br>
+              ~10:30:00
+            </td>
+            <td>설거</td>
+            <td>22</td>
+            <td>
+              <button class="assignment" type="button">배정</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

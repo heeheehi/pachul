@@ -1,0 +1,58 @@
+@import '~@angular/material/_theming';
+
+/* Include non-theme styles for core.*/
+@include mat-core();
+
+/* Define a theme.*/
+$primary: mat-palette($mat-blue-grey);
+$accent: mat-palette($mat-indigo, A200, A100, A400);
+
+/* The warn palette is optional (defaults to red).*/
+$warn: mat-palette($mat-red);
+
+/* Create the theme object (a Sass map containing all of the palettes). */
+/* Light theme */
+$theme: mat-light-theme($primary, $accent, $warn);
+
+/* Dark theme */
+/*$theme: md-dark-theme($primary, $accent, $warn);*/
+
+@mixin mapia-custom-theme($theme) {
+  mat-tab-header {
+    border-bottom: solid 2px;
+  }
+
+}
+
+/* Include all theme styles for the components.*/
+@include angular-material-theme($theme);
+@include mapia-custom-theme($theme);
+
+.cdk-overlay-pane {
+  max-width: 500px;
+}
+
+.slick-dots {
+  bottom: 50px;
+  text-align: right;
+  padding: 0 8px 0 0;
+
+  li {
+    margin: 0 1px;
+    button {
+      &:hover, &:focus {
+        outline: none;
+        &:before {
+          color: rgb(245, 100, 0);
+        }
+      }
+      &:before {
+        text-align: center;
+        color: black;
+      }
+    }
+    &.slick-active button:before {
+      color: rgb(245, 100, 0);
+    }
+  }
+}
