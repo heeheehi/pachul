@@ -25,7 +25,7 @@
           </mat-form-field>
           <label class="form-label">시간</label>
           <div class="time-term">
-            <select class="time" title="startHour" [(ngModel)]="callItem.startHour">
+            <select class="time" title="startHour" name="startHour" [(ngModel)]="callItem.startHour">
               <option value="7">07</option>
               <option value="8">08</option>
               <option value="9">09</option>
@@ -44,12 +44,12 @@
               <option value="22">22</option>
               <option value="23">23</option>
             </select>
-            <select class="time" title="startMinute" [(ngModel)]="callItem.startMin">
+            <select class="time" title="startMinute" name="startMinute" [(ngModel)]="callItem.startMin">
               <option value="00">00</option>
               <option value="30">30</option>
             </select>
             ~
-            <select class="time" title="endtHour" [(ngModel)]="callItem.endHour">
+            <select class="time" title="endtHour" name="endHour" [(ngModel)]="callItem.endHour">
               <option value="7">07</option>
               <option value="8">08</option>
               <option value="9">09</option>
@@ -68,7 +68,7 @@
               <option value="22">22</option>
               <option value="23">23</option>
             </select>
-            <select class="time" title="endMinute" [(ngModel)]="callItem.endMin">
+            <select class="time" title="endMinute" name="endMinute" [(ngModel)]="callItem.endMin">
               <option value="00">00</option>
               <option value="30">30</option>
             </select>
@@ -77,6 +77,7 @@
           <input name="category" type="text" placeholder="카테고리" [(ngModel)]="callItem.category">
           <label class="form-label">기타 요청사</label>
           <input name="ect" type="text" placeholder="기타 요청사항" [(ngModel)]="callItem.etc">
+          <button type="button" class="submit" (click)="call()">요청하기</button>
         </form>
       </div>
     </mat-tab>

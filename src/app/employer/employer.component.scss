@@ -69,6 +69,14 @@
           margin: 0 1%;
         }
       }
+      .submit {
+        width: 200px;
+        background: #1ab394;
+        color: #fff;
+        padding: 12px;
+        font-size: 14px;
+        border-radius: 5px;
+      }
       &:after {
         content: '';
         display: block;
@@ -115,6 +123,9 @@
           .time {
             width: 21%;
           }
+        }
+        .submit {
+          width: 80%;
         }
       }
     }
