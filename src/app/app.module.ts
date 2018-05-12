@@ -11,13 +11,15 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatTabsModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CommonModule} from '@angular/common';
+import {AdminComponent} from './admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    EmployerComponent
+    EmployerComponent,
+    AdminComponent
   ],
   imports: [
     CommonModule,
