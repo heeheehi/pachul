@@ -29,7 +29,7 @@ export class EmployerComponent extends AbstractBaseComponent {
     callCnt: 0
   };
   callItem: {
-    companyID: number,
+    employerID: number,
     date: string,
     startTime: string,
     endTime: string,
@@ -37,7 +37,7 @@ export class EmployerComponent extends AbstractBaseComponent {
     etc: string
     price: number
   } = {
-    companyID: 0,
+    employerID: 0,
     date: '',
     startTime: '',
     endTime: '',
