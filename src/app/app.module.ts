@@ -12,6 +12,7 @@ import {MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateMo
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CommonModule} from '@angular/common';
 import {AdminComponent} from './admin/admin.component';
+import {IAPIConfig} from '../assets/constant/apiConfig';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import {AdminComponent} from './admin/admin.component';
     BrowserAnimationsModule,
     AppRoutingModule
   ],
-  providers: [MatDatepickerModule],
+  providers: [MatDatepickerModule, IAPIConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

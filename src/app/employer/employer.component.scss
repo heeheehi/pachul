@@ -64,9 +64,16 @@
         float: left;
         margin: 10px 0;
         .time {
-          width: 22%;
+          width: 20%;
           height: 35px;
           margin: 0 1%;
+        }
+        .price {
+          width: 4%;
+          height: 35px;
+          display: inline-block;
+          margin: 0 1%;
+          color: red;
         }
       }
       .submit {

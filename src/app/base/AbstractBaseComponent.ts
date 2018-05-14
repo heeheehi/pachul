@@ -2,8 +2,9 @@ import {OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 
 export abstract class AbstractBaseComponent implements OnInit, OnDestroy {
-  _sub: Subscription[] = [];
+  _sub: Subscription[];
   ngOnInit() {
+    this._sub = [];
   }
   ngOnDestroy() {
     if (this._sub) {

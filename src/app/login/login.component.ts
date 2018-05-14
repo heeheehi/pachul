@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {AbstractBaseComponent} from '../base/AbstractBaseComponent';
 import {HttpClient} from '@angular/common/http';
-import {prod_api_url} from '../../assets/constant/apiConfig';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +15,7 @@ export class LoginComponent extends AbstractBaseComponent {
   }
   login() {
     // this.userID.length == 0 ?
-    this.http.get<string>(`${prod_api_url}?route=login&userID=${this.userID}&password=${this.password}`)
+    this.http.get<string>(`?route=login&userID=${this.userID}&password=${this.password}`)
       .subscribe(res => {
         localStorage.setItem('token', res);
       });

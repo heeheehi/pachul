@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AbstractBaseComponent} from '../base/AbstractBaseComponent';
+import {IAPIConfig} from '../../assets/constant/apiConfig';
 
 @Component({
   selector: 'app-admin',
@@ -8,7 +9,7 @@ import {AbstractBaseComponent} from '../base/AbstractBaseComponent';
 })
 export class AdminComponent extends AbstractBaseComponent {
   callLits: any[];
-  constructor() {
+  constructor(private apiConfig: IAPIConfig) {
     super();
   }
 }
