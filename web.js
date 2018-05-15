@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var app = express();
 
-const port = process.env.PORT || '5000';
+const port = process.env.PORT || '8001';
 
 app.set('port', port);
 app.use(express.static(__dirname + '/src'));
