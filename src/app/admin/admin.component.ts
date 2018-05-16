@@ -8,7 +8,7 @@ import {IAPIConfig} from '../../assets/constant/apiConfig';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent extends AbstractBaseComponent {
-  callLits: any[];
+  callList: any[];
   constructor(private apiConfig: IAPIConfig) {
     super();
   }

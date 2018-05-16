@@ -8,11 +8,19 @@ import {HeaderComponent} from './header/header.component';
 import {AppRoutingModule} from './app.route';
 import {EmployerComponent} from './employer/employer.component';
 import {HttpClientModule} from '@angular/common/http';
-import {MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatTabsModule} from '@angular/material';
+import {
+  MatDatepickerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatTabsModule
+} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CommonModule} from '@angular/common';
 import {AdminComponent} from './admin/admin.component';
 import {IAPIConfig} from '../assets/constant/apiConfig';
+import {AdminMenuComponent} from './admin-menu/admin-menu.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +28,8 @@ import {IAPIConfig} from '../assets/constant/apiConfig';
     HeaderComponent,
     LoginComponent,
     EmployerComponent,
-    AdminComponent
+    AdminComponent,
+    AdminMenuComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +41,7 @@ import {IAPIConfig} from '../assets/constant/apiConfig';
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
+    MatMenuModule,
     BrowserAnimationsModule,
     AppRoutingModule
   ],
