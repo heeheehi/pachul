@@ -1,5 +1,5 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT']."/config/config.php";
+include $_SERVER['DOCUMENT_ROOT']."/controller/config/config.php";
 
 function get_parameter($key){
   if(isset($_GET[$key])){
@@ -17,15 +17,20 @@ function console_log($message){
 
 function isUser()
 {
-  if (!isset($_COOKIE['user_id']) || !isset($_COOKIE['user_name'])) {
+  if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_name'])) {
     return true;
-  } else return true;
+  } else return false;
 }
 
-function return_msg($result){
-  echo $result;
-  return $result;
+function return_msg( $data ) {
+  session_write_close();
+  header('Content-type: application/json;charset=utf-8');
+  header("Connection: Keep-Alive");
+  echo json_encode(array('request'=>$data));
+  return json_encode(array('request'=>$data));
+//  exit;
 }
 
 
 ?>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body></body></html>

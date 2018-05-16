@@ -1,7 +1,5 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . "/config/config.php";
-include $_SERVER['DOCUMENT_ROOT'] . "/controller/functions/mysql_function.php";
-include $_SERVER['DOCUMENT_ROOT'] . "/controller/functions/api.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/controller/config/config.php";
 mysqli_query($connect, "set names utf8");
 
 //업체 삽입 / 수정

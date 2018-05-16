@@ -1,10 +1,11 @@
 <?
 //check endGaipDate every day
-include $_SERVER['DOCUMENT_ROOT']."/config/config.php";
+include $_SERVER['DOCUMENT_ROOT']."/controller/config/config.php";
 
 $getEmployerQuery = "SELECT * FROM `employer`";
 $getEmployerResult = mysqli_query($connect, $getEmployerQuery);
 
+//전체 업체에 대해 실행
 while($getEmployerRow = mysqli_fetch_assoc($getEmployerResult)){
   $employerID = $getEmployerRow['id'];
   $endGaipDateTime = strtotime($getEmployerRow['endGaipDate']);
