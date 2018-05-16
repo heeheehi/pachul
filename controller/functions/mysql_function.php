@@ -6,7 +6,7 @@ class mysqlFunctions{
   //get function
   public function mysql_get_row($tableName, $id){
     global $connect;
-    $getQuery = "SELECT * FROM `".$tableName."` WHERE id = " . $id . "";
+    $getQuery = "SELECT * FROM `".$tableName."` WHERE id = '" . $id . "'";
     $getResult = mysqli_query($connect, $getQuery) or die(mysqli_error($connect));
     if(mysqli_num_rows($getResult)==0){
       return "There is no data";
@@ -110,3 +110,4 @@ class mysqlFunctions{
   }
 }
 ?>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body></body></html>

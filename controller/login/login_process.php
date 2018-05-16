@@ -1,25 +1,25 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT']."/config/config.php";
-include $_SERVER['DOCUMENT_ROOT']."/controller/functions/mysql_function.php";
-include $_SERVER['DOCUMENT_ROOT']."/controller/functions/api.php";
+include $_SERVER['DOCUMENT_ROOT']."controller/config/config.php";
 
-if(!isset($_POST['user_id']) || !isset($_POST['user_pw'])) exit;
 $userID = $_POST['user_id'];
 $userPW = $_POST['user_pw'];
 
-$query = "select * from `user` where id = ".$userID." AND pw = ".$userPW."";
-$result= mysqli_query($connect, $query) or die(mysqli_error($connect));
-$row = mysqli_fetch_assoc($result);
-$userName = $row['name'];
-$count=mysqli_num_rows($result);
+$loginQuery = "SELECT * FROM `user` where userID = '".$userID."' AND userPW = '".$userPW."' LIMIT 1";
+echo $loginQuery;
+$loginResult= mysqli_query($connect, $loginQuery) or die(mysqli_error($connect));
+$loginRow = mysqli_fetch_assoc($loginResult);
+$userName = $loginRow['name'];
+$count=mysqli_num_rows($loginResult);
 
 //입력 제대로 안했을 때
 if(!isset($userID)||!isset($userPW)){
+  echo "invalid";
   alert("invalid");
   exit;
 }
 //아이디 또는 패스워드가 일치하지 않음
 if ($count==0){
+  echo "no matching";
   alert("no matching");
   exit;
 }

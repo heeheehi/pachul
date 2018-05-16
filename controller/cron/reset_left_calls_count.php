@@ -1,13 +1,9 @@
 <?
 //employer - reset weekly call count
-include $_SERVER['DOCUMENT_ROOT']."/config/config.php";
+include $_SERVER['DOCUMENT_ROOT']."/controller/config/config.php";
 
 $getEmployerQuery = "SELECT * FROM `employer`";
 $getEmployerResult = mysqli_query($connect, $getEmployerQuery);
-
-$callsPerGujwa = 3;
-$today = date("Y-m-d");
-$todayDateTime = strtotime($today);
 
 while($getEmployerRow = mysqli_fetch_assoc($getEmployerResult)){
   $employerID = $getEmployerRow['id'];
