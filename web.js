@@ -9,8 +9,9 @@ enableProdMode();
 
 app.set('port', port);
 app.use(express.static(__dirname + '/src'));
-
+console.log('잘 받아오는거 맞냐');
 app.get('/[^\.]+$', function(req, res) {
+  console.log(path.join(__dirname, '/src/index.html'));
   res.set('Content-Type', 'text/html')
     .sendFile(path.join(__dirname, '/src/index.html'))
 });
