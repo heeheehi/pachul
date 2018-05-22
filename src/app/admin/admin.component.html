@@ -1,4 +1,3 @@
-<app-admin-menu></app-admin-menu>
 <table class="table">
   <thead>
   <tr>
@@ -65,3 +64,48 @@
   </tr>
   </tbody>
 </table>
+<button class="btn add-btn" type="button" (click)="openModal(addModal)">추가</button>
+<ng-template #addModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">업체 추가</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="submit()">
+      <label class="control-label">업체명</label>
+      <input type="text" name="store-name" title="store-name" [(ngModel)]="storeItem.storeName">
+      <label class="control-label">사장 이름</label>
+      <input type="text" name="employer-name" title="employer-name" [(ngModel)]="storeItem.employerName">
+      <label class="control-label">업체 번호</label>
+      <input type="text" name="store-phone" title="store-phone" [(ngModel)]="storeItem.storePhone">
+      <label class="control-label">사장 번호</label>
+      <input type="text" name="employer-phone" title="employer-phone" [(ngModel)]="storeItem.employerPhone">
+      <label class="control-label">주소</label>
+      <input type="text" name="address" title="address" [(ngModel)]="storeItem.address">
+      <label class="control-label">상세 주소</label>
+      <input type="text" name="detail-address" title="detail-address" [(ngModel)]="storeItem.detailAddress">
+      <label class="control-label">최초 가입일</label>
+      <input type="text" name="first-date" title="first-date" [(ngModel)]="storeItem.firstJoinDate">
+      <label class="control-label">현재 가입일</label>
+      <input type="text" name="current-date" title="current-date" [(ngModel)]="storeItem.currentJoinDate">
+      <label class="control-label">가입 만기일</label>
+      <input type="text" name="end-date" title="end-date" [(ngModel)]="storeItem.endDate">
+      <label class="control-label">가입 금액</label>
+      <input type="text" name="price" title="price" [(ngModel)]="storeItem.price">
+      <label class="control-label">구좌수</label>
+      <input type="text" name="gujwa" title="gujwa" [(ngModel)]="storeItem.gujwa">
+      <label class="control-label">남은 콜수</label>
+      <input type="text" name="call-cnt" title="call-cnt" [(ngModel)]="storeItem.callCnt">
+      <label class="control-label">업체 비고</label>
+      <input type="text" name="store-detail" title="store-detail" [(ngModel)]="storeItem.storeDetail">
+      <label class="control-label">가입 비고</label>
+      <input type="text" name="join-detail" title="join-detail" [(ngModel)]="storeItem.joinDetail">
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-close" type="button" (click)="modalRef.hide()">취소</button>
+    <button class="btn btn-submit" type="button" (click)="submit()">추가</button>
+  </div>
+</ng-template>

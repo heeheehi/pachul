@@ -1,2 +1,17 @@
 $primaryColor: #1ab394;
 $secondColor: #30424F;
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.btn {
+  display: inline-block;
+  padding: .375rem .75rem;
+  border: solid 1px #ccc;
+  border-radius: .25rem;
+  font-size: 1rem;
+  background-color: #fff;
+  vertical-align: middle;
+}
+
+.modal-l {
+  max-width: 1200px;
+  margin: 10px auto;
+}

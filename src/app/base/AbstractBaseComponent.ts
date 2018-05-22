@@ -3,8 +3,10 @@ import {Subscription} from 'rxjs';
 
 export abstract class AbstractBaseComponent implements OnInit, OnDestroy {
   _sub: Subscription[];
-  ngOnInit() {
+  constructor() {
     this._sub = [];
+  }
+  ngOnInit() {
   }
   ngOnDestroy() {
     if (this._sub) {

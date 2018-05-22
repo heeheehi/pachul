@@ -5,16 +5,17 @@
 </mat-menu>
 <button mat-button [matMenuTriggerFor]="call">콜 관리</button>
 <mat-menu #call="matMenu">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
+  <button mat-menu-item>콜관리</button>
+  <button mat-menu-item>배정 관</button>
 </mat-menu>
 <button mat-button [matMenuTriggerFor]="employee">인력 관리</button>
 <mat-menu #employee="matMenu">
   <button mat-menu-item>인력관리</button>
-  <button mat-menu-item>블렉리스트</button>
+  <button mat-menu-item>인력현</button>
+  <button mat-menu-item>삭제된 인력 관리</button>
+  <button mat-menu-item>펑크 관리</button>
 </mat-menu>
 <button mat-button [matMenuTriggerFor]="etc">기타</button>
 <mat-menu #etc="matMenu">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
+  <button mat-menu-item>블렉리스트</button>
 </mat-menu>

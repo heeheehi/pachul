@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {LoginComponent} from './login/login.component';
-import {FormsModule} from '@angular/forms';
+import {COMPOSITION_BUFFER_MODE, FormsModule} from '@angular/forms';
 import {HeaderComponent} from './header/header.component';
 import {AppRoutingModule} from './app.route';
 import {EmployerComponent} from './employer/employer.component';
@@ -21,6 +21,8 @@ import {CommonModule} from '@angular/common';
 import {AdminComponent} from './admin/admin.component';
 import {IAPIConfig} from '../assets/constant/apiConfig';
 import {AdminMenuComponent} from './admin-menu/admin-menu.component';
+import {OverlayContainer} from '@angular/cdk/overlay';
+import {ModalModule, setTheme} from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -43,9 +45,20 @@ import {AdminMenuComponent} from './admin-menu/admin-menu.component';
     MatNativeDateModule,
     MatMenuModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ModalModule.forRoot()
   ],
-  providers: [MatDatepickerModule, IAPIConfig],
+  providers: [MatDatepickerModule, IAPIConfig,
+    {
+      provide: COMPOSITION_BUFFER_MODE,
+      useValue: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(overlayContainer: OverlayContainer) {
+    overlayContainer.getContainerElement().classList.add('unicorn-dark-theme');
+    setTheme('bs4');
+  }
+}
