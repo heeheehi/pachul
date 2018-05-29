@@ -2,7 +2,10 @@
 //employee - reset weekly assigned count
 include $_SERVER['DOCUMENT_ROOT']."/controller/config/config.php";
 
-$query = "UPDATE `employee` SET weeklyAssignedCount = 0";
-$result = mysqli_query($connect,$query);
-echo "All weekly Count reset. It's Monday!";
+$query = "SELECT * FROM `employee`";
+$result = mysqli_query($connect,$query) or die(mysqli_error($connect));
+while($row = mysqli_fetch_assoc($result)){
+  $row['weeklyCount'] = 0;
+  echo "id: ".$row['id']." weekly count reset"."<br/>";
+}
 ?>
