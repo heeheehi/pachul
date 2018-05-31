@@ -18,7 +18,6 @@ export class HeaderComponent extends AbstractBaseComponent {
       this.router.events.subscribe(params => {
         if (params instanceof NavigationEnd) {
           this.url = params.url.toString().split('/')[1];
-          console.log(this.url);
         }
       })
     );
