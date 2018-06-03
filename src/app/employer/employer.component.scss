@@ -24,6 +24,7 @@
     }
     .form-input {
       width: 68%;
+      min-height: 46px;
       padding: 10px;
       border-radius: 5px;
       float: left;
@@ -33,6 +34,7 @@
     .form-input-half {
       width: 18%;
       padding: 10px;
+      min-height: 46px;
       border-radius: 5px;
       float: left;
       margin: 10px 0;
@@ -75,6 +77,12 @@
           margin: 0 1%;
           color: red;
         }
+      }
+      .category {
+        width: 70%;
+        float: left;
+        height: 40px;
+        margin: 10px 0;
       }
       .submit {
         width: 200px;

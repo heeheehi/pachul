@@ -23,6 +23,7 @@ import {IAPIConfig} from '../assets/constant/apiConfig';
 import {AdminMenuComponent} from './admin-menu/admin-menu.component';
 import {OverlayContainer} from '@angular/cdk/overlay';
 import {ModalModule, setTheme} from 'ngx-bootstrap';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {ModalModule, setTheme} from 'ngx-bootstrap';
   imports: [
     CommonModule,
     BrowserModule,
+    RouterModule,
     FormsModule,
     HttpClientModule,
     MatTabsModule,
@@ -45,14 +47,14 @@ import {ModalModule, setTheme} from 'ngx-bootstrap';
     MatNativeDateModule,
     MatMenuModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     ModalModule.forRoot()
   ],
   providers: [MatDatepickerModule, IAPIConfig,
     {
       provide: COMPOSITION_BUFFER_MODE,
       useValue: true
-    }
+    },
+    ...AppRoutingModule.providers
   ],
   bootstrap: [AppComponent]
 })

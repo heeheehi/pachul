@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 
 @Injectable()
 export class IAPIConfig {
-  base_api_url = 'http://aika823.dothome.co.kr/controller/employer.php';
+  base_api_url = 'http://api.bestpachul.com/controller';
   constructor(private http: HttpClient) {
   }
 
@@ -20,7 +20,6 @@ export class IAPIConfig {
     responseType?: 'json';
     withCredentials?: boolean;
   }): Observable<T> {
-    console.log(this.base_api_url);
     return this.http.get<T>(this.base_api_url + url, options);
   }
 

@@ -3,15 +3,15 @@
     <mat-tab label="내 정보">
       <div class="content">
         <label class="form-label">상호명</label>
-        <div class="form-input">{{ownerInfo.storeName}}</div>
-        <label class="form-label">사장 이름</label>
-          <div class="form-input">{{ownerInfo.ownerName}}</div>
+        <div class="form-input">{{ownerInfo.companyName}}</div>
+        <label class="form-label">사장님 성함</label>
+          <div class="form-input">{{ownerInfo.ceoName}}</div>
         <label class="form-label">가입 기간</label>
           <div class="form-input">{{ownerInfo.registerTerm}}</div>
         <label class="form-label">가입 구좌</label>
-          <div class="form-input-half">{{ownerInfo.accountCnt}}</div>
+          <div class="form-input-half">{{ownerInfo.gujwa}}</div>
         <label class="form-label">남은 콜수</label>
-        <div class="form-input-half">{{ownerInfo.callCnt}}</div>
+        <div class="form-input-half">{{ownerInfo.leftCalls}}</div>
       </div>
     </mat-tab>
     <mat-tab label="콜보내기">
@@ -90,15 +90,37 @@
               {{callItem.price}}
             </div>
           </div>
-          <label class="form-label">카테고리</label>
-          <input name="category" type="text" placeholder="카테고리" [(ngModel)]="callItem.category">
+          <label class="form-label">직종</label>
+          <select class="category" title="category" name="category" [(ngModel)]="callItem.category">
+            <option value="설거지">설거지</option>
+            <option value="찬모">찬모</option>
+            <option value="서빙">서빙</option>
+            <option value="주방">주방</option>
+            <option value="기타">기타</option>
+          </select>
           <label class="form-label">기타 요청사</label>
-          <input name="ect" type="text" placeholder="기타 요청사항" [(ngModel)]="callItem.etc">
+          <input name="ect" type="text" placeholder="기타 요청사항" [(ngModel)]="callItem.detail">
           <button type="button" class="submit" (click)="call()">요청하기</button>
         </form>
       </div>
     </mat-tab>
     <mat-tab label="콜 목록">
+    <form (ngSubmit)="getCallList(callItem.employerID)">
+      <label class="form-label">날짜</label>
+      <mat-form-field>
+        <input matInput class="end-date" title="listStartDate" name="listStartDate" [(ngModel)]="listStartDate" [matDatepicker]="listStartPicker">
+        <mat-datepicker-toggle matSuffix [for]="listStartPicker"></mat-datepicker-toggle>
+        <mat-datepicker #listStartPicker></mat-datepicker>
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field>
+        <input matInput class="end-date" title="listEndDate" name="listEndDate" [(ngModel)]="listEndDate" [matDatepicker]="listEndPicker">
+        <mat-datepicker-toggle matSuffix [for]="listEndPicker"></mat-datepicker-toggle>
+        <mat-datepicker #listEndPicker></mat-datepicker>
+      </mat-form-field>
+      <button class="btn" type="submit">검색</button>
+    </form>
+
       <div class="call-list content">
         <table class="table">
           <thead>
@@ -108,30 +130,33 @@
             <th>카테고리</th>
             <th>비고</th>
             <th>배정</th>
+            <th>취소</th>
           </tr>
           </thead>
           <tbody>
-          <!--<tr *ngFor="let call of callList">-->
-          <!--<td>{{call.companyName}}</td>-->
-          <!--<td>{{call.date}}</td>-->
-          <!--<td>{{call.startTime}}</td>-->
-          <!--<td>{{call.endTime}}</td>-->
-          <!--<td>{{call.category}}</td>-->
-          <!--<td>{{call.detail}}</td>-->
-          <!--<td>{{call.additionDate}}</td>-->
-          <!--<td><button class="assignment" type="button">배정</button> </td>-->
-          <!--</tr>-->
-          <tr>
-            <td>2018-04-10</td>
-            <td>08:30:00<br>
-              ~10:30:00
-            </td>
-            <td>설거</td>
-            <td>22</td>
-            <td>
-              <button class="assignment" type="button">배정</button>
-            </td>
+          <tr *ngFor="let call of callList">
+          <td>{{call.workingDate}}</td>
+          <td>{{call.startTime}} ~ {{call.endTime}}</td>
+          <td>{{call.category}}</td>
+          <td>{{call.detail}}</td>
+          <td>{{call.category}}</td>
+          <td>{{call.employeeName}}</td>
+          <td><i class="fal fa-times" *ngIf="call.employeeName === ''" (click)="callCancel(call.callID)"></i></td>
           </tr>
+          <!--<tr>-->
+            <!--<td>2018-04-10</td>-->
+            <!--<td>08:30:00<br>-->
+              <!--~10:30:00-->
+            <!--</td>-->
+            <!--<td>설거</td>-->
+            <!--<td>22</td>-->
+            <!--<td>-->
+              <!--<button class="assignment" type="button">배정</button>-->
+            <!--</td>-->
+            <!--<td>-->
+              <!--<i class="fal fa-times" (click)="callCancel(1)"></i>-->
+            <!--</td>-->
+          <!--</tr>-->
           </tbody>
         </table>
       </div>
