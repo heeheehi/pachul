@@ -32,14 +32,37 @@ if(get_parameter('route') == 'delete') {
 
 //가입 내역
 if(get_parameter('route') == 'joinHistory') {
+  global $connect;
   $employerID = $_GET['employerID'];
-  $mysqlFunction->mysql_get_row('join',$employerID, 'employerID');
+  $query = "
+    SELECT `startDate`, `endDate`, `Gujwa`, `price`, `detail`, `createdTime` FROM `join_employer` 
+    WHERE `employerID` = '".$employerID."'
+  ";
+  $result = mysqli_query($connect, $query) or die(mysqli_error($connect));
+  while ($row = mysqli_fetch_assoc($result)) {
+    $array[] = $row;
+  }
+  return_msg("OK", $array);
 }
 
 //배정 내역
 if(get_parameter('route') == 'assignHistory') {
+  global $connect;
   $employerID = $_GET['employerID'];
-  $mysqlFunction->mysql_get_row('calls',$employerID,'employerID',"`assigned`=1");
+  $query = "
+    SELECT 
+    `call`.`callID`,`call`.`workingDate`, `call`.`category`, `call`.`startTime`, `call`.`endTime`, `call`.`detail`, 
+    `call`.`createdTime`,`employee`.`employeeName`, `company`.`companyName`
+    FROM `call` 
+    LEFT JOIN `employee` ON `call`.`employeeID` = `employee`.`employeeID`
+    LEFT JOIN `company` ON `call`.`employerID` = `company`.`employerID`
+    WHERE `call`.`employerID` = '".$employerID."'
+  ";
+  $result = mysqli_query($connect, $query) or die(mysqli_error($connect));
+  while ($row = mysqli_fetch_assoc($result)){
+    $array[] = $row;
+  }
+  return_msg("OK", $array);
 }
 
 //error case

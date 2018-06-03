@@ -31,7 +31,6 @@ class mysqlFunctions
     $joinQuery =
       "SELECT * FROM `" . $tableName1 . "` INNER JOIN `" . $tableName2 . "` ON 
       `" . $tableName1 . "`." . $key . "= " . $keyValue . " AND `" . $tableName2 . "`." . $key . " =" . $keyValue . "";
-    echo $joinQuery;
     $joinResult = mysqli_query($connect, $joinQuery) or die(mysqli_error($connect));
     while ($joinRow = mysqli_fetch_assoc($joinResult)) {
       $array[] = $joinRow;
@@ -45,10 +44,9 @@ class mysqlFunctions
     global $connect;
     $query =
       "SELECT * FROM `" . $table1 . "` 
-      inner JOIN `" . $table2 . "` ON 
+      INNER JOIN `" . $table2 . "` ON 
       `" . $table1 . "`." . $key1 . "= " . $keyValue1 . " AND `" . $table2 . "`." . $key1 . " =" . $keyValue1 .
-      " inner JOIN `" . $table3 . "` ON `" . $table1 . "`." . $key2 . " = `" . $table3 . "`." . $key2;
-    echo $query;
+      " LEFT JOIN `" . $table3 . "` ON `" . $table1 . "`." . $key2 . " = `" . $table3 . "`." . $key2;
     $result = mysqli_query($connect, $query);
     while ($row = mysqli_fetch_assoc($result)) {
       $array[] = $row;
@@ -60,7 +58,9 @@ class mysqlFunctions
   public function mysql_insert($tableName, $data)
   {
     global $connect;
+    $data = json_encode($data);
     $dataArray = json_decode($data, true);
+
     $dataKeys = array_keys($dataArray);
     $dataValues = array_map(array($connect, 'real_escape_string'), array_values($dataArray));
     for ($i = 0; $i < count($dataValues); $i++) {
@@ -72,7 +72,6 @@ class mysqlFunctions
     $insertQuery =
       "INSERT INTO `" . $tableName . "`(" . $dataKeysString . ") VALUES (" . $dataValuesString . ")";
     $insertResult = mysqli_query($connect, $insertQuery) or die(mysqli_error($connect));
-    return_msg("OK");
   }
 
   //call count down function
@@ -80,7 +79,7 @@ class mysqlFunctions
   {
     global $connect;
     $countDownQuery =
-      "UPDATE `employer` SET `leftCalls` = `leftCalls`-1 WHERE `employerID` = " . $employerID . " LIMIT 1";
+      "UPDATE `employer` SET `leftCalls` = `leftCalls`-1 WHERE `employerID` = '".$employerID."' LIMIT 1";
     $countDownResult = mysqli_query($connect, $countDownQuery) or die(mysqli_error($connect));
   }
 
@@ -89,7 +88,7 @@ class mysqlFunctions
   {
     global $connect;
     $countDownQuery =
-      "UPDATE `employer` SET `leftCalls` = `leftCalls`+1 WHERE `employerID` = " . $employerID . " LIMIT 1";
+      "UPDATE `employer` SET `leftCalls` = `leftCalls`+1 WHERE `employerID` =".$employerID." LIMIT 1";
     $countDownResult = mysqli_query($connect, $countDownQuery) or die(mysqli_error($connect));
   }
 
@@ -128,15 +127,15 @@ class mysqlFunctions
   function assign_condition($callID)
   {
     global $connect;
-    $assignConditionQuery = "SELECT * FROM `calls` WHERE `callId` = " . $callID . " LIMIT 1";
+    $assignConditionQuery = "SELECT `call`.`employeeID`, `call`.`assignConfirmed` FROM `call` WHERE `callId` = '" . $callID."' ";
     $assignConditionResult = mysqli_query($connect, $assignConditionQuery) or die(mysqli_query($connect));
     $assignConditionRow = mysqli_fetch_assoc($assignConditionResult);
 
     if ($assignConditionRow['employeeID'] != null) {
       if ($assignConditionRow['assignConfirmed'] == 1) {
-        return_msg("assigned");
-      } else return_msg("assignConfirmed");
-    } else return_msg("notAssigned");
+        return("assignConfirmed");
+      } else return("assigned");
+    } else return("notAssigned");
   }
 }
 
