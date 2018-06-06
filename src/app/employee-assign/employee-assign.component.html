@@ -1,0 +1,61 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th>일련 변호</th>
+    <th>이름</th>
+    <th>만 나이</th>
+    <th>전화 번호</th>
+    <th>간단 주소</th>
+    <th>상세 주소</th>
+    <th>특기</th>
+    <th>현재 배정된 업체</th>
+    <th>현재 가입 금액</th>
+    <th>근무 시작시간</th>
+    <th>근무 종료시간</th>
+    <th>현재 가입 금</th>
+    <th>주간 배정 횟수</th>
+    <th>수정</th>
+    <th>삭제</th>
+    <th>가입내역</th>
+    <th>배정내역</th>
+    <th>재가입</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let employeeRow of employeeList">
+    <td>{{employeeRow.employeeID}}</td>
+    <td>{{employeeRow.employeeName}}</td>
+    <td>{{employeeRow.birthDate}}</td>
+    <td>{{employeeRow.phoneNumber}}</td>
+    <td>{{employeeRow.address}}</td>
+    <td>{{employeeRow.detailAddress}}</td>
+    <td>{{employeeRow.attribute}}</td>
+    <td></td>
+    <td></td>
+    <td>{{employeeRow.endDate}}</td>
+    <td>{{employeeRow.price}}</td>
+    <td>{{employeeRow.Gujwa}}</td>
+    <td>{{employeeRow.leftCalls}}</td>
+    <td>
+      <button class="btn btn-primary" type="button" (click)="getJoinHistory(employeeRow.employeeID, joinHistory)">가입 내역
+      </button>
+    </td>
+    <td>
+      <button class="btn btn-primary" type="button" (click)="getAssignHistory(employeeRow.employeeID)">배정 내역</button>
+    </td>
+    <td>
+      <button class="btn btn-primary" type="button"
+              (click)="reJoinEmployeeID = employeeRow.employeeID; openModal(reJoin)">
+        재가입
+      </button>
+    </td>
+    s
+    <td>
+      <button class="btn btn-primary" type="button" (click)="modify(modifyModal, employeeRow)">수정</button>
+    </td>
+    <td>
+      <i class="fas fa-times" (click)="remove()"></i>
+    </td>
+  </tr>
+  </tbody>
+</table>

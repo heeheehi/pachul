@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">가입 내역</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>현재 가입일</th>
+      <th>가입 만기일</th>
+      <th>현재 가입금액</th>
+      <th>구좌 수</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let callRow of joinHistory">
+      <td>{{callRow.startDate}}</td>
+      <td>{{callRow.endDate}}</td>
+      <td>{{callRow.price}}</td>
+      <td>{{callRow.Gujwa}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

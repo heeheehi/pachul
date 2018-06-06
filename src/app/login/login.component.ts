@@ -53,6 +53,8 @@ export class LoginComponent extends AbstractBaseComponent {
             break;
         }
       }
+    }, err => {
+      alert(err.error.message);
     });
   }
 }

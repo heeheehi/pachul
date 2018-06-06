@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
 import {EmployerComponent} from './employer/employer.component';
 import {AdminComponent} from './admin/admin.component';
+import {EmployeeComponent} from './employee/employee.component';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,10 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent
+  },
+  {
+    path: 'admin/employee',
+    component: EmployeeComponent
   },
   {
     path: '**',

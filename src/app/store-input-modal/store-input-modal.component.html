@@ -1,0 +1,48 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">업체 추가</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="submit()">
+    <label class="control-label">업체명</label>
+    <input class="small" type="text" name="store-name" title="store-name" [(ngModel)]="companyItem.companyName">
+
+    <label class="control-label">업체 번호</label>
+    <input class="small" type="text" name="store-phone" title="store-phone" [(ngModel)]="companyItem.companyPhoneNumber">
+
+    <label class="control-label">사장 이름</label>
+    <input class="small" type="text" name="employer-name" title="employer-name" [(ngModel)]="employerItem.ceoName">
+    <label class="control-label">사장 번호</label>
+    <input class="small" type="text" name="employer-phone" title="employer-phone" [(ngModel)]="employerItem.ceoPhoneNumber">
+
+    <label class="control-label">주소</label>
+    <input class="address" type="text" name="address" title="address" [(ngModel)]="companyItem.address">
+    <label class="control-label">상세 주소</label>
+    <input class="detail-address" type="text" name="detail-address" title="detail-address" [(ngModel)]="companyItem.detailAddress">
+
+    <label class="control-label">최초 가입일</label>
+    <input class="medium" type="text" name="first-date" title="first-date" [(ngModel)]="employerItem.firstJoinDate">
+    <label class="control-label">현재 가입일</label>
+    <input class="medium" type="text" name="current-date" title="current-date" [(ngModel)]="joinItem.startDate">
+    <label class="control-label">가입 만기일</label>
+    <input class="medium" type="text" name="end-date" title="end-date" [(ngModel)]="joinItem.endDate">
+
+    <label class="control-label">가입 금액</label>
+    <input class="medium" type="text" name="price" title="price" [(ngModel)]="joinItem.price">
+    <label class="control-label">구좌수</label>
+    <input class="medium" type="text" name="gujwa" title="gujwa" [(ngModel)]="joinItem.Gujwa">
+    <label class="control-label">남은 콜수</label>
+    <input class="medium" type="text" name="call-cnt" title="call-cnt" [(ngModel)]="employerItem.leftCalls">
+    <label class="control-label">업체 비고</label>
+    <input class="large" type="text" name="store-detail" title="store-detail" [(ngModel)]="employerItem.detail">
+    <label class="control-label">가입 비고</label>
+    <input class="large" type="text" name="join-detail" title="join-detail" [(ngModel)]="joinItem.detail">
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-close" type="button" (click)="modalRef.hide()">취소</button>
+  <button class="btn btn-submit" type="button" *ngIf="route === 'insert'" (click)="submit()">추가</button>
+  <button class="btn btn-submit" type="button" *ngIf="route === 'update'" (click)="submit()">수정</button>
+</div>

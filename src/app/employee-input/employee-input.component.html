@@ -1,0 +1,85 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">인력 추가</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="submit()">
+    <label class="control-label">이름</label>
+    <input class="small" type="text" name="store-name" title="store-name" [(ngModel)]="employeeItem.employeeName">
+
+    <label class="control-label">생년월일</label>
+    <input class="small" type="text" name="store-phone" title="store-phone" [(ngModel)]="employeeItem.birthDate">
+
+    <label class="control-label">폰번호</label>
+    <input class="small" type="text" name="employer-name" title="employer-name" [(ngModel)]="employeeItem.phoneNumber">
+    <label class="control-label">가입 금액</label>
+    <input class="small" type="text" name="employer-phone" title="employer-phone" [(ngModel)]="joinItem.price">
+
+    <label class="control-label">주소</label>
+    <input class="address" type="text" name="address" title="address" [(ngModel)]="employeeItem.address">
+    <label class="control-label">상세 주소</label>
+    <input class="detail-address" type="text" name="detail-address" title="detail-address" [(ngModel)]="employeeItem.detailAddress">
+
+
+    <label class="control-label">최초 가입일</label>
+    <mat-form-field class="medium">
+      <input matInput class="first-date" name="first-date" [(ngModel)]="firstJoinDate" [matDatepicker]="firstDatePicker">
+      <mat-datepicker-toggle matSuffix [for]="firstDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #firstDatePicker></mat-datepicker>
+    </mat-form-field>
+    <label class="control-label">현재 가입일</label>
+    <mat-form-field class="medium">
+      <input matInput class="start-date" name="start-date" [(ngModel)]="startDate" [matDatepicker]="startDatePicker">
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+    <label class="control-label">가입 만기일</label>
+    <mat-form-field class="medium">
+      <input matInput class="end-date" name="end-date" [(ngModel)]="endDate" [matDatepicker]="endDatePicker">
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <label class="control-label">되는 요일</label>
+    <div class="large" style="display: inline-block">
+      <input type="checkbox" name="mon" title="mon" [ngModel]="okDays.mon" (change)="checkAllDays(okDays.mon)"> 월
+      <input type="checkbox" name="tue" title="tue" [ngModel]="okDays.tue" (change)="checkAllDays(okDays.tue)"> 화
+      <input type="checkbox" name="web" title="web" [ngModel]="okDays.web" (change)="checkAllDays(okDays.web)"> 수
+      <input type="checkbox" name="thu" title="thu" [ngModel]="okDays.thu" (change)="checkAllDays(okDays.thu)"> 목
+      <input type="checkbox" name="fri" title="fri" [ngModel]="okDays.fri" (change)="checkAllDays(okDays.fri)"> 금
+      <input type="checkbox" name="sat" title="sat" [ngModel]="okDays.sat" (change)="checkAllDays(okDays.sat)"> 토
+      <input type="checkbox" name="sun" title="sun" [ngModel]="okDays.sun" (change)="checkAllDays(okDays.sun)"> 일
+      <input type="checkbox" name="all" title="all" [ngModel]="okDays.all" (click)="makeAllOk()"> 전일
+    </div>
+
+    <label class="control-label">되는 날</label>
+    <mat-form-field>
+      <input matInput class="ok-date" name="okDate" [(ngModel)]="okDate" [matDatepicker]="okDatePicker">
+      <mat-datepicker-toggle matSuffix [for]="okDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #okDatePicker></mat-datepicker>
+    </mat-form-field>
+    <input class="date" type="text" name="price" title="price" [(ngModel)]="employeeItem.attribute">
+
+    <label class="control-label">안 되는 날</label>
+    <mat-form-field>
+      <input matInput class="block-date" name="blockDate" [(ngModel)]="blockDate" [matDatepicker]="blockDatePicker">
+      <mat-datepicker-toggle matSuffix [for]="blockDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #blockDatePicker></mat-datepicker>
+    </mat-form-field>
+    <input class="date" type="text" name="price" title="price" [(ngModel)]="employeeItem.attribute">
+
+    <label class="control-label">특기</label>
+    <input class="large" type="text" name="price" title="price" [(ngModel)]="employeeItem.attribute">
+    <label class="control-label">비고</label>
+    <input class="large" type="text" name="store-detail" title="store-detail" [(ngModel)]="employeeItem.detail">
+    <label class="control-label">가입 비고</label>
+    <input class="large" type="text" name="join-detail" title="join-detail" [(ngModel)]="joinItem.detail">
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-close" type="button" (click)="modalRef.hide()">취소</button>
+  <button class="btn btn-submit" type="button" *ngIf="route === 'insert'" (click)="submit()">추가</button>
+  <button class="btn btn-submit" type="button" *ngIf="route === 'update'" (click)="submit()">수정</button>
+</div>

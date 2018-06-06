@@ -1,12 +1,5 @@
 @import "../../scss/style.scss";
-:host {
-  width: 90%;
-  display: block;
-  margin: 30px auto;
-  .table {
-    width: 100%;
-  }
-}
+
 input {
   margin: 8px 1%;
   display: inline-block;
@@ -23,17 +16,27 @@ input {
 .address {
   width: 60%;
 }
+.date {
+  width: 72.5%;
+}
 .detail-address {
   width: 21%;
 }
 .medium {
   width: 24%;
+  margin: 8px 1%;
 }
 .large {
   width: 90%;
+  mat-checkbox {
+    margin: 0 3px;
+  }
 }
-.add-btn {
+.btn-submit {
   background-color: $primaryColor;
   color: #fff;
   border: solid 0;
+}
+/deep/ .cdk-overlay-container {
+  z-index: 1100;
 }

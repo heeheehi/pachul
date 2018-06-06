@@ -5,11 +5,11 @@
         <label class="form-label">상호명</label>
         <div class="form-input">{{ownerInfo.companyName}}</div>
         <label class="form-label">사장님 성함</label>
-          <div class="form-input">{{ownerInfo.ceoName}}</div>
+        <div class="form-input">{{ownerInfo.ceoName}}</div>
         <label class="form-label">가입 기간</label>
-          <div class="form-input">{{ownerInfo.registerTerm}}</div>
+        <div class="form-input">{{ownerInfo.registerTerm}}</div>
         <label class="form-label">가입 구좌</label>
-          <div class="form-input-half">{{ownerInfo.gujwa}}</div>
+        <div class="form-input-half">{{ownerInfo.Gujwa}}</div>
         <label class="form-label">남은 콜수</label>
         <div class="form-input-half">{{ownerInfo.leftCalls}}</div>
       </div>
@@ -100,26 +100,29 @@
           </select>
           <label class="form-label">기타 요청사</label>
           <input name="ect" type="text" placeholder="기타 요청사항" [(ngModel)]="callItem.detail">
-          <button type="button" class="submit" (click)="call()">요청하기</button>
+          <button type="button" class="submit" (click)="call()" *ngIf="ownerInfo.leftCalls !== 0">요청하기</button>
+          <button type="button" class="submit" (click)="call(true)" *ngIf="ownerInfo.leftCalls === 0">유료 콜 요청하기</button>
         </form>
       </div>
     </mat-tab>
     <mat-tab label="콜 목록">
-    <form (ngSubmit)="getCallList(callItem.employerID)">
-      <label class="form-label">날짜</label>
-      <mat-form-field>
-        <input matInput class="end-date" title="listStartDate" name="listStartDate" [(ngModel)]="listStartDate" [matDatepicker]="listStartPicker">
-        <mat-datepicker-toggle matSuffix [for]="listStartPicker"></mat-datepicker-toggle>
-        <mat-datepicker #listStartPicker></mat-datepicker>
-      </mat-form-field>
-      &nbsp;
-      <mat-form-field>
-        <input matInput class="end-date" title="listEndDate" name="listEndDate" [(ngModel)]="listEndDate" [matDatepicker]="listEndPicker">
-        <mat-datepicker-toggle matSuffix [for]="listEndPicker"></mat-datepicker-toggle>
-        <mat-datepicker #listEndPicker></mat-datepicker>
-      </mat-form-field>
-      <button class="btn" type="submit">검색</button>
-    </form>
+      <form (ngSubmit)="getCallList(callItem.employerID)">
+        <label class="form-label">날짜</label>
+        <mat-form-field>
+          <input matInput class="end-date" title="listStartDate" name="listStartDate" [(ngModel)]="listStartDate"
+                 [matDatepicker]="listStartPicker">
+          <mat-datepicker-toggle matSuffix [for]="listStartPicker"></mat-datepicker-toggle>
+          <mat-datepicker #listStartPicker></mat-datepicker>
+        </mat-form-field>
+        &nbsp;
+        <mat-form-field>
+          <input matInput class="end-date" title="listEndDate" name="listEndDate" [(ngModel)]="listEndDate"
+                 [matDatepicker]="listEndPicker">
+          <mat-datepicker-toggle matSuffix [for]="listEndPicker"></mat-datepicker-toggle>
+          <mat-datepicker #listEndPicker></mat-datepicker>
+        </mat-form-field>
+        <button class="btn" type="submit">검색</button>
+      </form>
 
       <div class="call-list content">
         <table class="table">
@@ -128,34 +131,43 @@
             <th>날짜</th>
             <th>시간</th>
             <th>카테고리</th>
-            <th>비고</th>
+            <th>요구 사항</th>
             <th>배정</th>
-            <th>취소</th>
+            <th>비고</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let call of callList">
-          <td>{{call.workingDate}}</td>
-          <td>{{call.startTime}} ~ {{call.endTime}}</td>
-          <td>{{call.category}}</td>
-          <td>{{call.detail}}</td>
-          <td>{{call.category}}</td>
-          <td>{{call.employeeName}}</td>
-          <td><i class="fal fa-times" *ngIf="call.employeeName === ''" (click)="callCancel(call.callID)"></i></td>
+            <td>{{call.workingDate}}</td>
+            <td>{{call.startTime}} ~ {{call.endTime}}</td>
+            <td>{{call.category}}</td>
+            <td>{{call.detail}}</td>
+            <td>{{call.employeeName}}</td>
+            <td>
+              <ng-container *ngIf="call.employeeName === null; else exist">
+                <i class="fas fa-times" *ngIf="+call.isCancel === 0" (click)="callCancel(call.callID)"></i>
+                <span *ngIf="+call.isCancel === 1">
+                취소된 콜
+                </span>
+              </ng-container>
+              <ng-template #exist>
+                배정완료
+              </ng-template>
+            </td>
           </tr>
           <!--<tr>-->
-            <!--<td>2018-04-10</td>-->
-            <!--<td>08:30:00<br>-->
-              <!--~10:30:00-->
-            <!--</td>-->
-            <!--<td>설거</td>-->
-            <!--<td>22</td>-->
-            <!--<td>-->
-              <!--<button class="assignment" type="button">배정</button>-->
-            <!--</td>-->
-            <!--<td>-->
-              <!--<i class="fal fa-times" (click)="callCancel(1)"></i>-->
-            <!--</td>-->
+          <!--<td>2018-04-10</td>-->
+          <!--<td>08:30:00<br>-->
+          <!--~10:30:00-->
+          <!--</td>-->
+          <!--<td>설거</td>-->
+          <!--<td>22</td>-->
+          <!--<td>-->
+          <!--<button class="assignment" type="button">배정</button>-->
+          <!--</td>-->
+          <!--<td>-->
+          <!--<i class="fal fa-times" (click)="callCancel(1)"></i>-->
+          <!--</td>-->
           <!--</tr>-->
           </tbody>
         </table>

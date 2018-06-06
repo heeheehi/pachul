@@ -20,18 +20,17 @@ export class EmployerComponent extends AbstractBaseComponent {
     companyName: string,
     ceoName: string,
     registerTerm: string,
-    gujwa: number,
+    Gujwa: number,
     leftCalls: number
   } = {
     employerID: 0,
-    companyName: '비야 부대찌개',
-    ceoName: '최인규',
-    registerTerm: '2018.02.01-2018.12.31',
-    gujwa: 0,
+    companyName: '서버가 불안정합니다.',
+    ceoName: '한번 더 새로고침해주세요',
+    registerTerm: '이건 사장님의 정보가 아닙니다.',
+    Gujwa: 0,
     leftCalls: 0
   };
   callItem: CallItem = {
-    callID: 0,
     employerID: 0,
     startTime: '',
     endTime: '',
@@ -39,17 +38,16 @@ export class EmployerComponent extends AbstractBaseComponent {
     category: '',
     detail: '',
     price: 0,
-    employeeName: ''
   };
   callList: CallItem[];
   @ViewChild(MatDatepicker) endDatePicker: MatDatepicker<Date>;
   public endDate: Date = new Date();
 
   @ViewChild(MatDatepicker) listEndPicker: MatDatepicker<Date>;
-  listEndDate: Date = new Date();
+  listEndDate: Date;
 
   @ViewChild(MatDatepicker) listStartPicker: MatDatepicker<Date>;
-  listStartDate: Date = new Date();
+  listStartDate: Date;
 
   constructor(private apiConfig: IAPIConfig,
               private route: ActivatedRoute) {
@@ -58,6 +56,9 @@ export class EmployerComponent extends AbstractBaseComponent {
 
   ngOnInit() {
     super.ngOnInit();
+    this.listStartDate = new Date(this.endDate.getFullYear(), this.endDate.getMonth(), 1, 0, 0, 0);
+    this.listEndDate = new Date(this.endDate.getFullYear(), this.endDate.getMonth(),
+      (new Date(this.endDate.getFullYear(), this.endDate.getMonth(), 0)).getDate(), 0, 0, 0);
     this._sub.push(
       this.route.queryParams.subscribe(params => {
         if (params['employerID']) {
@@ -74,18 +75,20 @@ export class EmployerComponent extends AbstractBaseComponent {
     this.apiConfig.get<any>(`/employer/employer.php`, {params: ParamsBuilder.from({route: 'myInfo', employerID})}
     ).subscribe(list => {
       if (list.msg === 'OK') {
-        this.ownerInfo = list.request[0];
+        this.ownerInfo = list.request;
         console.log(this.ownerInfo);
-        this.ownerInfo.registerTerm = (list.request.currentJoinDate + '-' + list.request.endJoinDate).toString();
+        this.ownerInfo.registerTerm = (list.request.startDate + '-' + list.request.endDate).toString();
       }
     });
   }
   getCallList(employerID) {
+    const startDate = this.dateToStr(this.listStartDate);
+    const endDate = this.dateToStr(this.listEndDate);
     this.apiConfig.get<any>(`/employer/employer.php`, {params: ParamsBuilder.from({
         route: 'callList',
         employerID: employerID,
-        startDate: this.listStartDate,
-        endDate: this.listEndDate
+        startDate: startDate,
+        endDate: endDate
       })}
     ).subscribe(list => {
       if (list.msg === 'OK') {
@@ -94,31 +97,48 @@ export class EmployerComponent extends AbstractBaseComponent {
     });
   }
 
-  call() {
+  call(isFree = false) {
+    if (isFree) {
+      alert('유료콜은 회당 7000원의 요금이 부과됩니다.');
+    }
     if (this.callItem.workingDate === '' || this.callItem.category === '' || this.endHour === 0 || !this.startHour) {
       alert('모든 입력값을 채워주세요');
     }
     if (this.ownerInfo.leftCalls === 0) {
       alert('금주 콜 가능 횟수를 모두 사용하였습니다. 유료콜을 사용하시겠습니까?');
     }
-    this.callItem.endTime = this.endHour.toString() + this.minute;
-    this.callItem.startTime = this.startHour.toString() + this.minute;
+    this.callItem.endTime = (this.endHour < 10 ? '0' + this.endHour.toString() : this.endHour.toString())
+      + ':' +  (this.minute < 10 ? '0' + this.minute.toString() : this.minute.toString());
+    this.callItem.startTime = (this.startHour < 10 ? '0' + this.startHour.toString() : this.startHour.toString())
+    + ':' +  (this.minute < 10 ? '0' + this.minute.toString() : this.minute.toString());
     this.callItem.employerID = this.ownerInfo.employerID;
-    this.apiConfig.get<string>(`/employer/employer.php`, {params: ParamsBuilder.from({route: 'call', callItem: this.callItem})}
+    console.log(this.callItem);
+    this.apiConfig.get<any>(`/employer/employer.php`, {params: ParamsBuilder.from({
+        route: 'call', callItem: JSON.stringify(this.callItem)})}
     ).subscribe(res => {
-      res === 'OK' ? alert('성공적으로 콜요청되었습니다.') : alert('실패.');
+      res.msg === 'OK' ? alert('성공적으로 콜요청되었습니다.') : alert('실패.');
+      this.getCallList(this.ownerInfo.employerID);
     });
   }
   callCancel(callID) {
-    this.apiConfig.get<string>(`/employer/employer.php`, {params: ParamsBuilder.from({route: 'callCancel', callID})}
+    console.log(callID, this.ownerInfo.employerID);
+    this.apiConfig.get<any>(`/employer/employer.php`, {params: ParamsBuilder.from({
+        route: 'callCancel',
+        employerID: this.ownerInfo.employerID,
+        callID})}
     ).subscribe(res => {
-      res === 'OK' ? alert('성공적으로 콜요청되었습니다.') : alert('실패.');
+      res.msg === 'OK' ? alert('성공적으로 콜취소되었습니다.') : alert('실패.');
+      this.getCallList(this.ownerInfo.employerID);
     });
+  }
+  dateToStr(date: Date) {
+    const month = (((date.getMonth() + 1) < 10) ? '0' + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString());
+    const day = (((date.getDate() + 1) < 10) ? '0' + date.getDate().toString() : date.getDate().toString());
+    return date.getFullYear().toString() + month + day;
   }
 
   setEndTime() {
-    this.callItem.workingDate = this.endDate.getFullYear().toString() +
-      (this.endDate.getMonth() + 1).toString() + this.endDate.getDate().toString();
+    this.callItem.workingDate = this.dateToStr(this.endDate);
     if (this.endHour && this.startHour) {
       const timeTerm = (+this.endHour - +this.startHour < 0) ? +this.endHour + 24 - this.startHour : +this.endHour - +this.startHour;
       if (timeTerm < 5 && timeTerm > 0) {

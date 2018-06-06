@@ -4,3 +4,17 @@ html, body {
   display: block;
   margin: 0;
 }
+.btn-primary {
+  background-color: #1ab394;
+  color: #fff;
+}
+.btn {
+  display: inline-block;
+  padding: .375rem .75rem;
+  border: solid 1px #ccc;
+  border-radius: .25rem;
+  color: black;
+  font-size: 1rem;
+  background-color: #fff;
+  vertical-align: middle;
+}

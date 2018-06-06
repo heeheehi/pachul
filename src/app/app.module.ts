@@ -9,6 +9,7 @@ import {AppRoutingModule} from './app.route';
 import {EmployerComponent} from './employer/employer.component';
 import {HttpClientModule} from '@angular/common/http';
 import {
+  MatCheckboxModule,
   MatDatepickerModule,
   MatFormFieldModule,
   MatInputModule,
@@ -24,6 +25,10 @@ import {AdminMenuComponent} from './admin-menu/admin-menu.component';
 import {OverlayContainer} from '@angular/cdk/overlay';
 import {ModalModule, setTheme} from 'ngx-bootstrap';
 import {RouterModule} from '@angular/router';
+import {StoreInputModalComponent} from './store-input-modal/store-input-modal.component';
+import {JoinListModalComponent} from './join-list-modal/join-list-modal.component';
+import {EmployeeComponent} from './employee/employee.component';
+import {EmployeeInputModalComponent} from './employee-input/employee-input.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +37,11 @@ import {RouterModule} from '@angular/router';
     LoginComponent,
     EmployerComponent,
     AdminComponent,
-    AdminMenuComponent
+    AdminMenuComponent,
+    StoreInputModalComponent,
+    JoinListModalComponent,
+    EmployeeComponent,
+    EmployeeInputModalComponent
   ],
   imports: [
     CommonModule,
@@ -45,6 +54,7 @@ import {RouterModule} from '@angular/router';
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
+    MatCheckboxModule,
     MatMenuModule,
     BrowserAnimationsModule,
     ModalModule.forRoot()

@@ -2,70 +2,70 @@
   <thead>
   <tr>
     <th>일련 변호</th>
-    <th>상호명</th>
-    <th>사장 이름</th>
+    <th>이름</th>
+    <th>만 나이</th>
     <th>전화 번호</th>
-    <th>사장 번호</th>
     <th>간단 주소</th>
     <th>상세 주소</th>
-    <th>최초 가입일</th>
-    <th>현재 가입일</th>
-    <th>가입 만기일</th>
-    <th>현재 가입금액</th>
-    <th>구좌 수</th>
-    <th>남은 콜 수</th>
-    <th>가입 내역</th>
-    <th>배정 내역</th>
-    <th>재가입</th>
+    <th>특기</th>
+    <th>현재 가입 금액</th>
+    <th>최초 가입</th>
+    <th>현재가입일</th>
+    <th>가입만일</th>
+    <th>주간 배정 횟수</th>
     <th>수정</th>
+    <th>가입내역</th>
+    <th>배정내역</th>
+    <th>재가입</th>
     <th>삭제</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let callRow of callList">
-    <td>{{callRow.employerID}}</td>
-    <td>{{callRow.companyName}}</td>
-    <td>{{callRow.ceoName}}</td>
-    <td>{{callRow.companyPhoneNumber}}</td>
-    <td>{{callRow.ceoPhoneNumber}}</td>
-    <td>{{callRow.address}}</td>
-    <td>{{callRow.detailAddress}}</td>
-    <td>{{callRow.firstJoinDate}}</td>
-    <td>{{callRow.startDate}}</td>
-    <td>{{callRow.endDate}}</td>
-    <td>{{callRow.price}}</td>
-    <td>{{callRow.Gujwa}}</td>
-    <td>{{callRow.leftCalls}}</td>
-    <td>
-      <button class="btn btn-primary" type="button" (click)="getJoinHistory(callRow.employerID, joinHistory)">가입 내역
-      </button>
-    </td>
-    <td>
-      <button class="btn btn-primary" type="button" (click)="getAssignHistory(callRow.employerID)">배정 내역</button>
-    </td>
-    <td>
-      <button class="btn btn-primary" type="button" (click)="reJoinEmployerID = callRow.employerID; openModal(reJoin)">
-        재가입
-      </button>
-    </td>
-    <td>
-      <button class="btn btn-primary" type="button" (click)="modify(modifyModal, callRow)">수정</button>
-    </td>
-    <td>
-      <i class="fas fa-times" (click)="deletedEmployerID = callRow.employerID; openModal(delete)"></i>
-    </td>
-  </tr>
+  <ng-container *ngFor="let employeeRow of employeeList">
+    <tr [class.deleted]="employeeRow.deleted === '1'">
+      <td>{{employeeRow.employeeID}}</td>
+      <td>{{employeeRow.employeeName}}</td>
+      <td>{{employeeRow.birthDate}}</td>
+      <td>{{employeeRow.phoneNumber}}</td>
+      <td>{{employeeRow.address}}</td>
+      <td>{{employeeRow.detailAddress}}</td>
+      <td>{{employeeRow.attribute}}</td>
+      <td>{{employeeRow.price}}</td>
+      <td>{{employeeRow.firstJoinDate}}</td>
+      <td>{{employeeRow.startDate}}</td>
+      <td>{{employeeRow.endDate}}</td>
+      <td>{{employeeRow.weeklyCount}}</td>
+      <td>
+        <button class="btn btn-primary" type="button" (click)="modify(modifyModal, employeeRow)">수정</button>
+      </td>
+      <td>
+        <button class="btn btn-primary" type="button" (click)="getJoinHistory(employeeRow.employeeID, joinHistory)">가입 내역
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-primary" type="button" (click)="getAssignHistory(employeeRow.employeeID)">배정 내역</button>
+      </td>
+      <td>
+        <button class="btn btn-primary" type="button"
+                (click)="reJoinEmployeeID = employeeRow.employeeID; openModal(reJoin)">
+          재가입
+        </button>
+      </td>
+      <td>
+        <i class="fas fa-times" (click)="openModal(delete)"></i>
+      </td>
+    </tr>
+  </ng-container>
   </tbody>
 </table>
 <button class="btn add-btn" type="button" (click)="openModal(addModal)">추가</button>
 
 <ng-template #modifyModal>
-  <app-store-input [modalRef]="modalRef" [companyItem]="companyItem" [employerItem]="employerItem"
-                   [joinItem]="joinItem"></app-store-input>
+  <app-employee-input [modalRef]="modalRef" [employeeItem]="employeeItem" [joinItem]="joinItem"></app-employee-input>
 </ng-template>
 
 <ng-template #addModal>
-  <app-store-input [modalRef]="modalRef"></app-store-input>
+  <app-employee-input [modalRef]="modalRef"></app-employee-input>
 </ng-template>
 
 <ng-template #reJoin>
@@ -83,11 +83,8 @@
       <input class="medium" type="text" name="end-date" title="end-date" [(ngModel)]="reJoinItem.endDate">
       <label class="control-label">재가입 비고</label>
       <input class="medium" type="text" name="end-date" title="end-date" [(ngModel)]="reJoinItem.detail">
-
       <label class="control-label">가입 금액</label>
       <input class="medium" type="text" name="price" title="price" [(ngModel)]="reJoinItem.price">
-      <label class="control-label">구좌수</label>
-      <input class="medium" type="text" name="gujwa" title="gujwa" [(ngModel)]="reJoinItem.Gujwa">
     </form>
   </div>
   <div class="modal-footer">
@@ -95,9 +92,10 @@
     <button class="btn btn-submit" type="button" (click)="submit()">추가</button>
   </div>
 </ng-template>
+
 <ng-template #delete>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">업체 삭제</h4>
+    <h4 class="modal-title pull-left">인력 삭제</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
